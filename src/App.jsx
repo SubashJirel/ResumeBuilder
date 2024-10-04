@@ -21,8 +21,8 @@ function App() {
 
   return (
     <>
-      <div className="border-2 border-black bg-orange-500 text-black grid grid-cols-5 h-screen">
-        <div className="border-2 border-green-400 bg-blue-400 col-span-2 overflow-auto custom-scrollbar h-screen">
+      <div className=" h-screen bg-[#EEF1F3]  relative">
+        <div className=" bg-[#EEF1F3] overflow-auto custom-scrollbar h-screen  fixed w-[400px]">
           <PersonalDetails
             onChange={handlePersonalInfoChange}
             fullName={personalInfo.fullName}
@@ -36,8 +36,7 @@ function App() {
             setExperience={setExperience}
           />
         </div>
-        <div className="border-2 border-pink-600 col-span-3 bg-slate-500 flex flex-col space-y-4">
-          Preview side
+        <div className="  ml-[400px]  bg-[#EEF1F3] flex flex-col space-y-4">
           <ResumePreview
             personalInfo={personalInfo}
             education={education}
