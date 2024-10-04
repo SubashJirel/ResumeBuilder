@@ -3,9 +3,9 @@ import exampleData from '../../example-data';
 import EducationForm from './EducationForm';
 import { Trash2 } from 'lucide-react';
 
-function EducationSection() {
+function EducationSection({ education, setEducation }) {
   const [showBtnForm, setShowBtnForm] = useState('button');
-  const [education, setEducation] = useState(exampleData.sections.educations);
+
   const btnShow = showBtnForm == 'button';
   const formShow = showBtnForm == 'form';
 

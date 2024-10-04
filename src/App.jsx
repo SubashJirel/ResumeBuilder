@@ -12,20 +12,16 @@ function App() {
   const [experience, setExperience] = useState(
     exampleData.sections.experiences
   );
+  const [education, setEducation] = useState(exampleData.sections.educations);
 
-  // console.log(exampleData.sections.educations);
-  // console.log(educationRecords);
   function handlePersonalInfoChange(e) {
     const { key } = e.target.dataset;
-    // console.log(e.target.dataset); // input ma maile data-key="email" bhanera yesari data-key rakheko chhu
-    // //so e.target.dataset gives me object like this {key: 'email'}
     setPersonalInfo({ ...personalInfo, [key]: e.target.value });
-    //[key] is a computed property name in JavaScript. It allows you to dynamically set the property name based on the value of key.
   }
 
   return (
     <>
-      <div className="border-2 border-black bg-orange-500 text-black grid grid-cols-5 ">
+      <div className="border-2 border-black bg-orange-500 text-black grid grid-cols-5 h-screen">
         <div className="border-2 border-green-400 bg-blue-400 col-span-2 overflow-auto custom-scrollbar h-screen">
           <PersonalDetails
             onChange={handlePersonalInfoChange}
@@ -34,15 +30,19 @@ function App() {
             phoneNumber={personalInfo.phoneNumber}
             address={personalInfo.address}
           />
-          <EducationSection />
+          <EducationSection education={education} setEducation={setEducation} />
           <ExperienceSection
             experience={experience}
             setExperience={setExperience}
           />
         </div>
-        <div className="border-2 border-pink-600 col-span-3">
+        <div className="border-2 border-pink-600 col-span-3 bg-slate-500 flex flex-col space-y-4">
           Preview side
-          <ResumePreview personalInfo={personalInfo} />
+          <ResumePreview
+            personalInfo={personalInfo}
+            education={education}
+            experience={experience}
+          />
         </div>
       </div>
     </>
