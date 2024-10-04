@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0e374e; /* Change the color to your preference */
+  border-radius: 6px;
+  border: 3px solid #f1f1f1; /* Add a border for a nice contrast */
+}
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Change the color to your preference */
+  border-radius: 8px;
+}
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #262266 #f1f1f1; /* Change the colors to your preference */
+}

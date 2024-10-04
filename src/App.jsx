@@ -3,14 +3,18 @@ import { useState } from 'react';
 import PersonalDetails from './components/personal-info/PersonalDetails';
 import ResumePreview from './components/previewRightSide/ResumePreview';
 import EducationSection from './components/education/EducationSection';
+import ExperienceSection from './components/experience/ExperienceSection';
 
 import exampleData from './example-data';
 
 function App() {
   const [personalInfo, setPersonalInfo] = useState(exampleData.personalInfo);
+  const [experience, setExperience] = useState(
+    exampleData.sections.experiences
+  );
 
   // console.log(exampleData.sections.educations);
-  console.log(educationRecords);
+  // console.log(educationRecords);
   function handlePersonalInfoChange(e) {
     const { key } = e.target.dataset;
     // console.log(e.target.dataset); // input ma maile data-key="email" bhanera yesari data-key rakheko chhu
@@ -18,9 +22,6 @@ function App() {
     setPersonalInfo({ ...personalInfo, [key]: e.target.value });
     //[key] is a computed property name in JavaScript. It allows you to dynamically set the property name based on the value of key.
   }
-
-  function handleChangeItem() {}
-  function handleDeleteItem() {}
 
   return (
     <>
@@ -34,6 +35,10 @@ function App() {
             address={personalInfo.address}
           />
           <EducationSection />
+          <ExperienceSection
+            experience={experience}
+            setExperience={setExperience}
+          />
         </div>
         <div className="border-2 border-pink-600 col-span-3">
           Preview side
