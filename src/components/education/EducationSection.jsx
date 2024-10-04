@@ -1,56 +1,41 @@
 import { useState } from 'react';
-import InputGroup from '../inputGroup';
-import uniqid from 'uniqid';
+import exampleData from '../../example-data';
+import EducationForm from './EducationForm';
 import { Trash2 } from 'lucide-react';
-function EducationSection({ education }) {
+
+function EducationSection() {
   const [showBtnForm, setShowBtnForm] = useState('button');
-  const [formData, setFormData] = useState({
-    degree: '',
-    schoolName: '',
-    startDate: '',
-    endDate: '',
-  });
+  const [education, setEducation] = useState(exampleData.sections.educations);
   const btnShow = showBtnForm == 'button';
   const formShow = showBtnForm == 'form';
+
   function toggleShow() {
     setShowBtnForm((prev) => (prev == 'button' ? 'form' : 'button'));
   }
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    console.log(name, value);
-    setFormData({ ...formData, [name]: value });
-  }
+  function deleteEducation(valId) {
+    const isConfirmed = window.confirm(
+      'Are you sure you want to delete this education?'
+    );
 
-  function handleEducationAdd() {
-    // Check for empty fields
-    if (
-      !formData.degree ||
-      !formData.schoolName ||
-      !formData.startDate ||
-      !formData.endDate
-    ) {
-      alert('All fields must be filled out');
-      return;
+    if (isConfirmed) {
+      const updatedEducation = education.filter((val) => val.id !== valId);
+      setEducation(updatedEducation);
     }
-    const newEducation = {
-      ...formData,
-      id: uniqid(),
-    };
-    // console.log(newEducation);
-    education.push(newEducation);
-    toggleShow();
   }
   return (
-    <>
-      <h1 className="text-3xl">Education</h1>
+    <div className="ps-8  bg-[#FFFFFF]  shadow-xl rounded-lg w-5/6 m-auto mt-4 p-4">
+      <h1 className="text-2xl font-bold mb-3 mt-2">Education</h1>
       {education.map((val) => (
         <>
-          <div className="flex items-center">
-            <div className="m-3" key={val.id}>
-              {val.schoolName}{' '}
+          <div className="flex items-center justify-start rounded bg-[#F3F4F6] mb-2 mr-4">
+            <div className="m-3 " key={val.id}>
+              <div className=" font-semibold">{val.schoolName}</div>
             </div>
-            <Trash2 />
+            <Trash2
+              style={{ cursor: 'pointer' }}
+              onClick={() => deleteEducation(val.id)}
+            />
           </div>
         </>
       ))}
@@ -63,78 +48,13 @@ function EducationSection({ education }) {
         </button>
       )}
       {formShow && (
-        <div className="bg-white p-4 rounded shadow">
-          <form>
-            <div className="mb-4">
-              <label className="block text-sm font-bold mb-2">
-                School Name:
-              </label>
-              <input
-                name="schoolName"
-                onChange={handleChange}
-                value={formData.schoolName}
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
-                type="text"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-bold mb-2">Degree:</label>
-              <input
-                name="degree"
-                onChange={handleChange}
-                value={formData.degree}
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
-                type="text"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-bold mb-2">
-                Start Date:
-              </label>
-              <input
-                name="startDate"
-                onChange={handleChange}
-                value={formData.startDate}
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
-                type="text"
-              />
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-bold mb-2">End Date:</label>
-              <input
-                name="endDate"
-                onChange={handleChange}
-                value={formData.endDate}
-                className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"
-                type="text"
-              />
-            </div>
-            <div className="flex justify-between">
-              <button
-                type="button"
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-              >
-                Delete
-              </button>
-              <button
-                type="button"
-                className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
-                onClick={toggleShow}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                onClick={handleEducationAdd}
-              >
-                Save
-              </button>
-            </div>
-          </form>
-        </div>
+        <EducationForm
+          education={education}
+          setEducation={setEducation}
+          toggleShow={toggleShow}
+        />
       )}
-    </>
+    </div>
   );
 }
 export default EducationSection;
